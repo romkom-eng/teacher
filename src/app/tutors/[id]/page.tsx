@@ -2,6 +2,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { use } from 'react';
 
+export async function generateStaticParams() {
+    return [
+        { id: 'jisukim' },
+        { id: 'minhopark' },
+        { id: 'yujinchoi' },
+        { id: 'dohyeonlee' },
+    ];
+}
+
 export default function TutorProfile({ params }: { params: Promise<{ id: string }> }) {
     // In Next.js 15+, dynamic route params are asynchronous and must be awaited or unwrapped using React.use().
     const resolvedParams = use(params);

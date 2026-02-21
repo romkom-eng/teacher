@@ -1,10 +1,13 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
-import { use } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
-export default function Checkout({ searchParams }: { searchParams: Promise<{ tutorId?: string }> }) {
-    const resolvedParams = use(searchParams);
-    const tutorId = resolvedParams.tutorId || 'Ji-su Kim';
+function CheckoutContent() {
+    const searchParams = useSearchParams();
+    const tutorId = searchParams.get('tutorId') || 'Ji-su Kim';
     return (
         <div className="bg-background-light dark:bg-background-dark min-h-screen font-display text-slate-900 dark:text-slate-100 flex flex-col">
             {/* Top Header - Simplified for Checkout */}
@@ -216,5 +219,13 @@ export default function Checkout({ searchParams }: { searchParams: Promise<{ tut
                 © 2026 K-Edu Connect. Secure Payment Portal.
             </footer>
         </div>
+    );
+}
+
+export default function Checkout() {
+    return (
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading checkout...</div>}>
+            <CheckoutContent />
+        </Suspense>
     );
 }
